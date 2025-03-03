@@ -68,22 +68,9 @@ npm run dev:https
 
 After this, you will see a similar message in your terminal:
 
-```bash
+````bash
 VITE v5.2.12  ready in 237 ms
 
-➜  Local:   https://localhost:5173/reactjs-template
-➜  Network: https://172.18.16.1:5173/reactjs-template
-➜  Network: https://172.19.32.1:5173/reactjs-template
-➜  Network: https://192.168.0.171:5173/reactjs-template
-➜  press h + enter to show help
-```
-
-Here, you can see the `Local` link, available locally, and `Network` links
-accessible to all devices in the same network with the current device.
-
-To view the application, you need to open the `Local`
-link (`https://localhost:5173/reactjs-template` in this example) in your
-browser:
 
 ![Application](assets/application.png)
 
@@ -134,13 +121,13 @@ name is `is-awesome`, the value in the `homepage` field should be the following:
 {
   "homepage": "https://telegram-mini-apps.github.io/is-awesome"
 }
-```
+````
 
 And `vite.config.ts` should have this content:
 
 ```ts
 export default defineConfig({
-  base: '/is-awesome/',
+  base: "/is-awesome/",
   // ...
 });
 ```
