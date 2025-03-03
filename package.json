@@ -1,9 +1,9 @@
 {
-  "name": "fury-slots",
+  "name": "FurySlots",
   "private": true,
   "version": "0.0.1",
   "type": "module",
-  "homepage": "https://jastler.github.io/FurySlots",
+  "homepage": "https://jastler.github.io/FurySlots/",
   "scripts": {
     "deploy": "gh-pages -d dist",
     "dev": "vite",
