@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/FurySlots/static/css/main.35091166.css",
-    "main.js": "/FurySlots/static/js/main.9a6ee40d.js",
+    "main.js": "/FurySlots/static/js/main.9ffeeabd.js",
     "index.html": "/FurySlots/index.html",
     "main.35091166.css.map": "/FurySlots/static/css/main.35091166.css.map",
-    "main.9a6ee40d.js.map": "/FurySlots/static/js/main.9a6ee40d.js.map"
+    "main.9ffeeabd.js.map": "/FurySlots/static/js/main.9ffeeabd.js.map"
   },
   "entrypoints": [
     "static/css/main.35091166.css",
-    "static/js/main.9a6ee40d.js"
+    "static/js/main.9ffeeabd.js"
   ]
 }
