@@ -3,6 +3,8 @@ import { AppRoot } from "@telegram-apps/telegram-ui";
 import { Navigate, Route, Routes, BrowserRouter } from "react-router-dom";
 
 import { routes } from "@/navigation/routes.tsx";
+import Header from "./Header";
+import "./App.css";
 
 export function App() {
   const lp = useLaunchParams();
@@ -14,6 +16,7 @@ export function App() {
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
     >
       <BrowserRouter basename="/FurySlots">
+        <Header />
         <Routes>
           {routes.map((route) => (
             <Route key={route.path} {...route} />
