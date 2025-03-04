@@ -1,10 +1,7 @@
 import { useState, useEffect } from "react";
 import { initData, useSignal } from "@telegram-apps/sdk-react";
-import {
-  getStarsBalance,
-  addStars,
-  purchaseOptions,
-} from "../../../services/StarsService";
+import { purchaseOptions } from "../../../services/StarsService";
+import { useStars } from "../../../services/StarsContext";
 import styles from "./StarsBalance.module.scss";
 
 interface StarsBalanceProps {
@@ -17,15 +14,15 @@ interface StarsBalanceProps {
 export const StarsBalance: React.FC<StarsBalanceProps> = ({
   refreshTrigger = 0,
 }) => {
-  const [starsBalance, setStarsBalance] = useState(0);
+  const { balance, refreshBalance, addToBalance } = useStars();
   const initDataState = useSignal(initData.state);
 
   // Get initial stars balance
   useEffect(() => {
     if (initDataState?.user) {
-      setStarsBalance(getStarsBalance());
+      refreshBalance();
     }
-  }, [initDataState?.user, refreshTrigger]);
+  }, [initDataState?.user, refreshTrigger, refreshBalance]);
 
   const handleAddStars = () => {
     // Open stars purchase dialog
@@ -64,9 +61,8 @@ export const StarsBalance: React.FC<StarsBalanceProps> = ({
             );
             if (selectedOption) {
               // For demo, add stars directly
-              addStars(selectedOption.amount)
+              addToBalance(selectedOption.amount)
                 .then((newBalance) => {
-                  setStarsBalance(newBalance);
                   tg.showPopup({
                     title: "Purchase Successful",
                     message: `You've successfully purchased ${selectedOption.amount} stars!\nYour new balance: ${newBalance} stars`,
@@ -87,9 +83,8 @@ export const StarsBalance: React.FC<StarsBalanceProps> = ({
     } else {
       // Fallback for when Telegram WebApp API is not available
       // For demo purposes, just add 100 stars
-      addStars(100)
+      addToBalance(100)
         .then((newBalance) => {
-          setStarsBalance(newBalance);
           alert(
             `Added 100 stars! Your new balance: ${newBalance} stars\n\nIn a real app, this would use Telegram's payment system.`
           );
@@ -108,7 +103,7 @@ export const StarsBalance: React.FC<StarsBalanceProps> = ({
       <div className={styles["stars-balance"]}>
         <span className={styles["stars-icon"]}>⭐</span>
         <span className={styles["stars-count"]}>
-          {starsBalance.toLocaleString()}
+          {balance.toLocaleString()}
         </span>
       </div>
     </div>

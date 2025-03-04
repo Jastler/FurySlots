@@ -9,6 +9,16 @@ export const IndexPage: FC = () => {
     <Page back={false}>
       <List>
         <Section
+          header="Features"
+          footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
+        >
+          <Link to="/casino">
+            <Cell subtitle="Play and win stars in the casino" before="🎰">
+              Lucky Roulette
+            </Cell>
+          </Link>
+        </Section>
+        <Section
           header="Application Launch Data"
           footer="These pages help developer to learn more about current launch information"
         >

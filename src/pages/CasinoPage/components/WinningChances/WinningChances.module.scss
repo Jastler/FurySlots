@@ -1,0 +1,84 @@
+.container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+}
+
+.chancesList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chanceItem {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.noWin {
+  background-color: rgba(255, 59, 48, 0.1);
+}
+
+.smallWin {
+  background-color: rgba(255, 204, 0, 0.15);
+}
+
+.mediumWin {
+  background-color: rgba(90, 200, 250, 0.15);
+}
+
+.bigWin {
+  background-color: rgba(76, 217, 100, 0.15);
+}
+
+.jackpot {
+  background-color: rgba(255, 45, 85, 0.15);
+  border-left: 3px solid rgba(255, 45, 85, 0.8);
+}
+
+.percentage {
+  font-weight: bold;
+  flex: 1;
+}
+
+.description {
+  flex: 2;
+}
+
+.multiplier {
+  font-weight: bold;
+}
+
+.jackpotText {
+  font-weight: bold;
+}
+
+.tip {
+  margin-top: 8px;
+  padding: 10px 8px;
+  background-color: rgba(142, 142, 147, 0.1);
+  border-radius: 8px;
+}
+
+.tipText {
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+}

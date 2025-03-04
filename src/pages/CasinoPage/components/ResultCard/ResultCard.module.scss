@@ -1,0 +1,41 @@
+.resultCard {
+  padding: 16px;
+  
+  border-radius: 12px;
+}
+
+.win {
+  background-color: rgba(76, 217, 100, 0.15);
+  border: 1px solid rgba(76, 217, 100, 0.3);
+  animation: pulse 1.5s infinite;
+}
+
+.loss {
+  background-color: rgba(255, 59, 48, 0.1);
+  border: 1px solid rgba(255, 59, 48, 0.2);
+}
+
+.error {
+  background-color: rgba(255, 204, 0, 0.15);
+  border: 1px solid rgba(255, 204, 0, 0.3);
+}
+
+.resultText {
+  text-align: center;
+  font-weight: bold;
+}
+
+.winText {
+  font-size: 18px;
+}
+
+.standardText {
+  font-size: 16px;
+}
+
+.congratulations {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+  text-align: center;
+}

@@ -50,96 +50,145 @@ export const purchaseOptions: StarsPurchaseOption[] = [
 ];
 
 /**
- * Get user's current stars balance
- * In a real app, this would make an API call to your backend
+ * Get current stars balance from localStorage
  */
-export function getStarsBalance(): number {
+export const getStarsBalance = (): number => {
   try {
-    // In a real app, you'd fetch this from your backend based on the user ID
+    console.log("getStarsBalance called");
+
+    // В реальному додатку ми б отримували цю інформацію з бекенду на основі ID користувача
     // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
     const userId = initData.user?.id;
-    if (!userId) return 0;
 
-    const savedBalance = localStorage.getItem(`${STARS_BALANCE_KEY}_${userId}`);
-    if (savedBalance) {
-      return parseInt(savedBalance, 10);
+    // Використовуємо демо-ключ, якщо userId недоступний
+    const storageKey = userId
+      ? `${STARS_BALANCE_KEY}_${userId}`
+      : `${STARS_BALANCE_KEY}_demo`;
+
+    console.log("Using storage key:", storageKey);
+
+    const storedBalance = localStorage.getItem(storageKey);
+    console.log("Stored balance from localStorage:", storedBalance);
+
+    // Якщо баланс не знайдено, повертаємо 500 за замовчуванням
+    if (!storedBalance) {
+      console.log("No stored balance found, setting default 500");
+      localStorage.setItem(storageKey, "500");
+      return 500;
     }
 
-    // Default balance for new users (for demo)
-    const defaultBalance = 100;
-    localStorage.setItem(
-      `${STARS_BALANCE_KEY}_${userId}`,
-      defaultBalance.toString()
-    );
-    return defaultBalance;
-  } catch (error) {
-    console.error("Error getting stars balance:", error);
-    return 0;
+    const parsedBalance = parseInt(storedBalance, 10);
+    console.log("Parsed balance:", parsedBalance);
+    return parsedBalance;
+  } catch (e) {
+    console.error("Error getting stars balance:", e);
+    return 500; // Значення за замовчуванням у разі помилки
   }
-}
+};
 
 /**
- * Add stars to the user's balance
- * In a real app, this would make an API call to your backend
+ * Spend stars from the balance
+ * @param amount Amount of stars to spend
+ * @returns New balance after spending
  */
-export function addStars(amount: number): Promise<number> {
-  return new Promise((resolve, reject) => {
-    try {
-      // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
-      const userId = initData.user?.id;
-      if (!userId) {
-        reject(new Error("User not authenticated"));
-        return;
-      }
+export const spendStars = async (amount: number): Promise<number> => {
+  try {
+    console.log("spendStars called with amount:", amount);
 
-      const currentBalance = getStarsBalance();
-      const newBalance = currentBalance + amount;
+    // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
+    const userId = initData.user?.id;
 
-      localStorage.setItem(
-        `${STARS_BALANCE_KEY}_${userId}`,
-        newBalance.toString()
-      );
-      resolve(newBalance);
-    } catch (error) {
-      console.error("Error adding stars:", error);
-      reject(error);
+    // Використовуємо демо-ключ, якщо userId недоступний
+    // const storageKey = userId
+    //   ? `${STARS_BALANCE_KEY}_${userId}`
+    //   : `${STARS_BALANCE_KEY}_demo`;
+
+    const storageKey = `${STARS_BALANCE_KEY}_demo`;
+
+    console.log("Using storage key:", storageKey);
+
+    // Get current balance
+    const currentBalance = getStarsBalance();
+    console.log("Current balance in spendStars:", currentBalance);
+
+    // Check if there are enough stars
+    if (currentBalance < amount) {
+      console.log("Not enough stars to spend");
+      throw new Error("Not enough stars");
     }
-  });
-}
+
+    // Calculate new balance
+    const newBalance = currentBalance - amount;
+    console.log("New balance to be saved:", newBalance);
+
+    // Store new balance
+    localStorage.setItem(storageKey, newBalance.toString());
+    console.log("Balance saved to localStorage with key:", storageKey);
+
+    return newBalance;
+  } catch (e) {
+    console.error("Error spending stars:", e);
+    throw e;
+  }
+};
 
 /**
- * Spend stars from the user's balance
- * In a real app, this would make an API call to your backend
+ * Add stars to the balance
+ * @param amount Amount of stars to add
+ * @returns New balance after adding stars
  */
-export function spendStars(amount: number): Promise<number> {
-  return new Promise((resolve, reject) => {
-    try {
-      // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
-      const userId = initData.user?.id;
-      if (!userId) {
-        reject(new Error("User not authenticated"));
-        return;
-      }
+export const addStars = async (amount: number): Promise<number> => {
+  try {
+    // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
+    const userId = initData.user?.id;
 
-      const currentBalance = getStarsBalance();
+    // Використовуємо демо-ключ, якщо userId недоступний
+    const storageKey = userId
+      ? `${STARS_BALANCE_KEY}_${userId}`
+      : `${STARS_BALANCE_KEY}_demo`;
 
-      if (currentBalance < amount) {
-        reject(new Error("Insufficient stars balance"));
-        return;
-      }
+    // Get current balance
+    const currentBalance = getStarsBalance();
 
-      const newBalance = currentBalance - amount;
-      localStorage.setItem(
-        `${STARS_BALANCE_KEY}_${userId}`,
-        newBalance.toString()
-      );
-      resolve(newBalance);
-    } catch (error) {
-      console.error("Error spending stars:", error);
-      reject(error);
-    }
-  });
-}
+    // Calculate new balance
+    const newBalance = currentBalance + amount;
+
+    // Store new balance
+    localStorage.setItem(storageKey, newBalance.toString());
+
+    return newBalance;
+  } catch (e) {
+    console.error("Error adding stars:", e);
+    throw e;
+  }
+};
+
+/**
+ * Reset stars balance to specified amount (default 500)
+ * @param amount Amount to reset balance to (default: 500)
+ * @returns New balance
+ */
+export const resetStarsBalance = async (
+  amount: number = 500
+): Promise<number> => {
+  try {
+    // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
+    const userId = initData.user?.id;
+
+    // Використовуємо демо-ключ, якщо userId недоступний
+    const storageKey = userId
+      ? `${STARS_BALANCE_KEY}_${userId}`
+      : `${STARS_BALANCE_KEY}_demo`;
+
+    // Store new balance
+    localStorage.setItem(storageKey, amount.toString());
+
+    return amount;
+  } catch (e) {
+    console.error("Error resetting stars balance:", e);
+    throw e;
+  }
+};
 
 /**
  * Process a purchase of stars via Telegram payments

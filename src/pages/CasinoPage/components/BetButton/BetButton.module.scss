@@ -1,0 +1,138 @@
+.betButton {
+  position: relative;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  min-width: 80px;
+  border: 2px solid transparent;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(0);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.betAmount {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.starIcon {
+  margin-left: 4px;
+  display: inline-block;
+  animation: rotate 10s linear infinite;
+}
+
+.selected {
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  box-shadow: 0 0 15px rgba(80, 165, 241, 0.5);
+  transform: scale(1.05);
+  z-index: 2;
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    opacity: 0;
+    animation: pulse-light 2s infinite;
+  }
+
+  &:before {
+    content: "✓";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    animation: pop-in 0.3s ease;
+  }
+}
+
+.bet10 {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+}
+
+.bet20 {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+  color: white;
+}
+
+.bet50 {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+}
+
+.bet100 {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+  transform: translateY(0) !important;
+  box-shadow: none !important;
+}
+
+@keyframes pulse-light {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
