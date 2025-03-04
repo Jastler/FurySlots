@@ -7,20 +7,20 @@ import mkcert from "vite-plugin-mkcert";
 export default defineConfig({
   base: "/FurySlots",
   plugins: [
-    // Allows using React dev server along with building a React application with Vite.
+    // Дозволяє використовувати React dev server разом із збіркою React додатку за допомогою Vite.
     // https://npmjs.com/package/@vitejs/plugin-react-swc
     react(),
-    // Allows using the compilerOptions.paths property in tsconfig.json.
+    // Дозволяє використовувати властивість compilerOptions.paths у tsconfig.json.
     // https://www.npmjs.com/package/vite-tsconfig-paths
     tsconfigPaths(),
-    // Creates a custom SSL certificate valid for the local machine.
-    // Using this plugin requires admin rights on the first dev-mode launch.
+    // Створює власний SSL-сертифікат, дійсний для локальної машини.
+    // Використання цього плагіна вимагає прав адміністратора при першому запуску в режимі розробки.
     // https://www.npmjs.com/package/vite-plugin-mkcert
     process.env.HTTPS && mkcert(),
   ],
   publicDir: "./public",
   server: {
-    // Exposes your dev server and makes it accessible for the devices in the same network.
+    // Відкриває ваш dev server і робить його доступним для пристроїв у тій самій мережі.
     host: true,
   },
 });

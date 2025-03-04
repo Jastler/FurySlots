@@ -1,33 +1,31 @@
 /**
- * @returns A complete public URL prefixed with the public static assets base
- * path.
- * @param path - path to prepend prefix to
+ * @returns Повний публічний URL з префіксом базового шляху до статичних ресурсів.
+ * @param path - шлях, до якого потрібно додати префікс
  */
 export function publicUrl(path: string): string {
-  // The baseUrl must be ending with the slash. The reason is if the baseUrl will
-  // equal to "/my-base", then passing the path equal to "tonconnect-manifest.json" will not
-  // give us the expected result, it will actually be "/tonconnect-manifest.json", but the expected
-  // one is "/my-base/tonconnect-manifest.json". This is due to the URL constructor.
+  // Базовий URL повинен закінчуватися слешем. Причина в тому, що якщо baseUrl буде
+  // дорівнювати "/my-base", то передача шляху "tonconnect-manifest.json" не
+  // дасть нам очікуваного результату, фактично буде "/tonconnect-manifest.json", а очікуваний
+  // результат - "/my-base/tonconnect-manifest.json". Це пов'язано з конструктором URL.
   let baseUrl = import.meta.env.BASE_URL;
-  if (!baseUrl.endsWith('/')) {
-    baseUrl += '/';
+  if (!baseUrl.endsWith("/")) {
+    baseUrl += "/";
   }
 
   let isBaseAbsolute = false;
   try {
     new URL(baseUrl);
     isBaseAbsolute = true;
-  } catch { /* empty */
+  } catch {
+    /* порожньо */
   }
 
   return new URL(
-    // The path is not allowed to be starting with the slash as long as it will break the
-    // base URL. For instance, having the "/my-base/" base URL and path
-    // equal to "/tonconnect-manifest.json", we will not get the expected result like
-    // "/my-base/tonconnect-manifest.json", but "/tonconnect-manifest.json".
-    path.replace(/^\/+/, ''),
-    isBaseAbsolute
-      ? baseUrl
-      : window.location.origin + baseUrl,
+    // Шлях не повинен починатися зі слеша, оскільки це порушить
+    // базовий URL. Наприклад, маючи базовий URL "/my-base/" і шлях
+    // "/tonconnect-manifest.json", ми не отримаємо очікуваний результат
+    // "/my-base/tonconnect-manifest.json", а отримаємо "/tonconnect-manifest.json".
+    path.replace(/^\/+/, ""),
+    isBaseAbsolute ? baseUrl : window.location.origin + baseUrl
   ).toString();
 }
