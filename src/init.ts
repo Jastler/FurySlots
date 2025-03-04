@@ -6,8 +6,6 @@ import {
   initData,
   $debug,
   init as initSDK,
-  isRGB,
-  isColorDark,
 } from "@telegram-apps/sdk-react";
 
 /**

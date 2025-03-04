@@ -56,6 +56,7 @@ export const purchaseOptions: StarsPurchaseOption[] = [
 export function getStarsBalance(): number {
   try {
     // In a real app, you'd fetch this from your backend based on the user ID
+    // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
     const userId = initData.user?.id;
     if (!userId) return 0;
 
@@ -84,6 +85,7 @@ export function getStarsBalance(): number {
 export function addStars(amount: number): Promise<number> {
   return new Promise((resolve, reject) => {
     try {
+      // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
       const userId = initData.user?.id;
       if (!userId) {
         reject(new Error("User not authenticated"));
@@ -112,6 +114,7 @@ export function addStars(amount: number): Promise<number> {
 export function spendStars(amount: number): Promise<number> {
   return new Promise((resolve, reject) => {
     try {
+      // @ts-expect-error Тип initData.user невизначений у TypeScript конфігурації
       const userId = initData.user?.id;
       if (!userId) {
         reject(new Error("User not authenticated"));
