@@ -1,17 +1,21 @@
 import { useState } from "react";
-import { initData, useSignal } from "@telegram-apps/sdk-react";
-import { Avatar, Text } from "@telegram-apps/telegram-ui";
-
-import Logo from "./Logo";
-import "./Header.css";
-import ProfileModal from "./ProfileModal";
+import { Logo } from "./Logo/Logo";
+import ProfileModal from "./ProfileModal/ProfileModal";
+import { StarsBalance } from "./StarsBalance";
+import { UserAvatar } from "./UserAvatar";
+import { useUser } from "../../hooks";
 import { checkTelegramWebApp } from "./debug";
+import styles from "./Header.module.scss";
 
+/**
+ * Main application header component
+ */
 export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const initDataState = useSignal(initData.state);
+  const { user } = useUser();
 
-  const user = initDataState?.user;
+  // Balance refresh trigger to sync balance between components
+  const [balanceRefreshTrigger, setBalanceRefreshTrigger] = useState(0);
 
   const handleAvatarClick = () => {
     console.log("Avatar clicked, opening profile");
@@ -26,24 +30,17 @@ export default function Header() {
   const handleCloseProfile = () => {
     console.log("Closing profile");
     setIsProfileOpen(false);
+
+    setBalanceRefreshTrigger((prev) => prev + 1);
   };
 
   return (
-    <div className="header">
-      <div className="header-content">
+    <div className={styles.header}>
+      <div className={styles.headerContent}>
         <Logo />
-
-        <div className="spacer" />
-
-        <div
-          className="user-profile-container"
-          onClick={handleAvatarClick}
-          role="button"
-          aria-label="Open user profile"
-        >
-          <Avatar size={48} src={user?.photoUrl} className="user-avatar" />
-          <Text weight="3">{user?.firstName || "User"}</Text>
-        </div>
+        <div className={styles.spacer} />
+        <StarsBalance refreshTrigger={balanceRefreshTrigger} />
+        <UserAvatar user={user} onClick={handleAvatarClick} />
       </div>
 
       <ProfileModal isOpen={isProfileOpen} onClose={handleCloseProfile} />

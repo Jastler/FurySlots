@@ -1,0 +1,32 @@
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 24px;
+  animation: flame 2s infinite;
+}
+
+.logoText {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+  color: var(--tg-theme-text-color, #000000);
+}
+
+@keyframes flame {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+  }
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+  }
+}

@@ -2,7 +2,7 @@ import { classNames, openLink } from "@telegram-apps/sdk-react";
 import { type FC, type MouseEventHandler, useCallback } from "react";
 import { Link as RouterLink, type LinkProps } from "react-router-dom";
 
-import "./Link.css";
+import styles from "./Link.module.scss";
 
 export const Link: FC<LinkProps> = ({
   className,
@@ -43,7 +43,7 @@ export const Link: FC<LinkProps> = ({
       {...rest}
       to={to}
       onClick={onClick}
-      className={classNames(className, "link")}
+      className={classNames(className, styles.link)}
     />
   );
 };

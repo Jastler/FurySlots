@@ -1,3 +1,31 @@
+/**
+ * Глобальні стилі додатку і визначення кольорових змінних
+ */
+
+/* Створюємо RGB версії кольорових змінних для підтримки прозорості */
+:root {
+  --tg-theme-bg-color-rgb: 255, 255, 255;
+  --tg-theme-text-color-rgb: 0, 0, 0;
+  --tg-theme-hint-color-rgb: 153, 153, 153;
+  --tg-theme-link-color-rgb: 0, 119, 255;
+  --tg-theme-button-color-rgb: 36, 129, 204;
+  --tg-theme-button-text-color-rgb: 255, 255, 255;
+  --tg-theme-secondary-bg-color-rgb: 245, 245, 245;
+}
+
+/* Темна тема */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tg-theme-bg-color-rgb: 36, 36, 36;
+    --tg-theme-text-color-rgb: 255, 255, 255;
+    --tg-theme-hint-color-rgb: 153, 153, 153;
+    --tg-theme-link-color-rgb: 58, 139, 255;
+    --tg-theme-button-color-rgb: 36, 129, 204;
+    --tg-theme-button-text-color-rgb: 255, 255, 255;
+    --tg-theme-secondary-bg-color-rgb: 24, 24, 24;
+  }
+}
+
 body {
   background: var(--tg-theme-secondary-bg-color, white);
   padding: 0;
